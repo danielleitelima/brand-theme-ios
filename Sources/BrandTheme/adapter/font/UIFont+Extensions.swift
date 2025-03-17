@@ -1,8 +1,25 @@
 import UIKit
 
 extension UIFont {
+
+    private static let fontLoader = FontLoader()
     
-    private static var hasLoadedFonts = false
+    private actor FontLoader {
+        private var hasLoadedFonts = false
+        
+        func ensureFontsLoaded() async {
+            guard !hasLoadedFonts else { return }
+            hasLoadedFonts = true
+            
+            FontAsset.allCases.forEach { (asset) in
+                UIFont.registerFont(
+                    withName: asset.rawValue,
+                    extension: asset.fileExtension,
+                    in: bundle
+                )
+            }
+        }
+    }
     
     private static func registerFont(
         withName name: String,
@@ -20,17 +37,7 @@ extension UIFont {
         }
     }
     
-    static func loadAll() {
-        guard hasLoadedFonts == false else {
-            return
-        }
-        hasLoadedFonts = true
-        RawFontAsset.allCases.forEach { (asset) in
-            registerFont(
-                withName: asset.rawValue,
-                extension: asset.fileExtension,
-                in: bundle
-            )
-        }
+    static func loadAll() async {
+        await fontLoader.ensureFontsLoaded()
     }
 }
