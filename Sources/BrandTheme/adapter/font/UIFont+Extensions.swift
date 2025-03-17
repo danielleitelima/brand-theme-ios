@@ -1,10 +1,6 @@
 import UIKit
 
 extension UIFont {
-
-    private static let fontLoaderQueue = DispatchQueue(label: "com.danielleitelima.brandtheme.fontloader", attributes: .concurrent)
-    private static var hasLoadedFonts = false
-    
     private static func registerFont(
         withName name: String,
         extension fileExtension: String,
@@ -22,17 +18,12 @@ extension UIFont {
     }
     
     static func loadAll() {
-        fontLoaderQueue.sync(flags: .barrier) {
-            guard !hasLoadedFonts else { return }
-            hasLoadedFonts = true
-            
-            FontAsset.allCases.forEach { (asset) in
-                registerFont(
-                    withName: asset.rawValue,
-                    extension: asset.fileExtension,
-                    in: bundle
-                )
-            }
+        RawFontAsset.allCases.forEach { (asset) in
+            registerFont(
+                withName: asset.rawValue,
+                extension: asset.fileExtension,
+                in: bundle
+            )
         }
     }
 }

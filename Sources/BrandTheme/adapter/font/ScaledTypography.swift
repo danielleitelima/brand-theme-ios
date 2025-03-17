@@ -5,7 +5,7 @@ struct ScaledTypography {
         case regular
         case medium
         
-        var asset: FontAsset {
+        var asset: RawFontAsset {
             switch self {
             case .regular:
                 return .robotoRegular
