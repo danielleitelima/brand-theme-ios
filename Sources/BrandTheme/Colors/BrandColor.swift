@@ -1,12 +1,38 @@
 import UIKit
 
 public enum BrandColor: String, CaseIterable {
-    case backgroundPrimary
-    case textPrimary
-    case textSecondary
-    case textPlaceholder
-    case actionPrimary
-    case backgroundSecondary
+    case primary
+    case surfaceTint
+    case onPrimary
+    case primaryContainer
+    case onPrimaryContainer
+    case secondary
+    case onSecondary
+    case secondaryContainer
+    case onSecondaryContainer
+    case tertiary
+    case onTertiary
+    case tertiaryContainer
+    case onTertiaryContainer
+    case error
+    case onError
+    case errorContainer
+    case onErrorContainer
+    case background
+    case onBackground
+    case surface
+    case onSurface
+    case surfaceVariant
+    case onSurfaceVariant
+    case outline
+    case outlineVariant
+    case shadow
+    case scrim
+    case surfaceContainerLowest
+    case surfaceContainerLow
+    case surfaceContainer
+    case surfaceContainerHigh
+    case surfaceContainerHighest
 }
 
 extension BrandColor {
@@ -14,19 +40,15 @@ extension BrandColor {
         return Bundle.module
     }
     
-    public func load() -> UIColor {
-        guard let color = UIColor(
+    public func load() -> UIColor? {
+        return UIColor(
             named: self.rawValue,
             in: bundle,
             compatibleWith: .current
-        ) else {
-            print("Warning: Color '\(self.rawValue)' not found in bundle")
-            return .black
-        }
-        return color
+        )
     }
     
     public static func color(_ brandColor: BrandColor) -> UIColor {
-        return brandColor.load()
+        return brandColor.load()!
     }
 }
