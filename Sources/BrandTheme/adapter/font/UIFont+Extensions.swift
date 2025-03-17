@@ -18,7 +18,7 @@ extension UIFont {
     }
     
     static func loadAll() {
-        RawFontAsset.allCases.forEach { (asset) in
+        FontAsset.allCases.forEach { (asset) in
             registerFont(
                 withName: asset.rawValue,
                 extension: asset.fileExtension,
