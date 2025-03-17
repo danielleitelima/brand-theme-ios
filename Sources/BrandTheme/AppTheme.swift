@@ -7,8 +7,22 @@ public protocol ThemeProvider {
 }
 
 public class BrandTheme: ThemeProvider {
+
+    public init() {
+        UIFont.loadAll()
+    }
     
     public func getColor(_ color: BrandColor) -> UIColor {
         return color.load()!
+    }
+
+    public func getFont(
+        _ typography: BrandTypography,
+        contentSize: UIContentSizeCategory
+    ) -> UIFont {
+        return ScaledTypography.load(
+            typography,
+            contentSize: contentSize
+        )
     }
 }
