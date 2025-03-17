@@ -2,6 +2,12 @@
 
 import Foundation
 
+private let scriptDirectory: String = {
+    let arguments = CommandLine.arguments
+    let scriptPath = arguments[0]
+    return URL(fileURLWithPath: scriptPath).deletingLastPathComponent().path
+}()
+
 private let colorSchemes = """
 {
   "schemes": {
@@ -311,7 +317,13 @@ for colorName in allColors {
         highContrastDarkHex: highContrastDarkHex
     )
     
-    let colorsetDirectory = "../ColorScheme.xcassets/\(colorName).colorset"
+    let assetsDirectory = URL(fileURLWithPath: scriptDirectory)
+        .deletingLastPathComponent() // adapter
+        .deletingLastPathComponent() // BrandTheme
+        .deletingLastPathComponent() // Sources
+        .appendingPathComponent("ColorScheme.xcassets").path
+    
+    let colorsetDirectory = "\(assetsDirectory)/\(colorName).colorset"
     
     let process1 = Process()
     process1.executableURL = URL(fileURLWithPath: "/bin/mkdir")
@@ -323,7 +335,7 @@ for colorName in allColors {
     let fileManager = FileManager.default
     fileManager.createFile(atPath: contentsJsonPath, contents: contentsJson.data(using: .utf8))
     
-    print("Created \(colorName).colorset")
+    print("Created \(colorName).colorset at \(colorsetDirectory)")
 }
 
 print("All color assets created successfully!") 
