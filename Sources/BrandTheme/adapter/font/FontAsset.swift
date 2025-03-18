@@ -46,7 +46,24 @@ enum FontAsset: String, CaseIterable {
         }
     }
     
-    func load(size: CGFloat) -> UIFont? {
-        return UIFont(name: self.rawValue, size: size)
+    func load(size: CGFloat) -> UIFont {
+        if let customFont = UIFont(name: self.rawValue, size: size) {
+            return customFont
+        }
+        print("Warning: Unable to load font \(rawValue). Using system fallback.")
+        
+        switch self {
+        case .robotoBold, .robotoBoldItalic, .robotoBlack, .robotoBlackItalic, .robotoExtraBold, .robotoExtraBoldItalic:
+            return UIFont.systemFont(ofSize: size, weight: .bold)
+        case .robotoMedium, .robotoMediumItalic, .robotoSemiBold, .robotoSemiBoldItalic:
+            return UIFont.systemFont(ofSize: size, weight: .medium)
+        case .robotoLight, .robotoLightItalic, .robotoThin, .robotoThinItalic:
+            return UIFont.systemFont(ofSize: size, weight: .light)
+        case .robotoItalic, .robotoThinItalic, .robotoLightItalic, .robotoMediumItalic, 
+             .robotoSemiBoldItalic, .robotoBoldItalic, .robotoExtraBoldItalic, .robotoBlackItalic:
+            return UIFont.italicSystemFont(ofSize: size)
+        default:
+            return UIFont.systemFont(ofSize: size, weight: .regular)
+        }
     }
 }

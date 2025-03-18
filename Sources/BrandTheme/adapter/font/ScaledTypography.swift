@@ -59,7 +59,7 @@ struct ScaledTypography {
         contentSize: UIContentSizeCategory
     ) -> UIFont {
         let scaledSize = getSize(defaultSize: defaultSize, contentSize: contentSize)
-        return type.asset.load(size: scaledSize)!
+        return type.asset.load(size: scaledSize)
     }
 
     private static func getSize(
