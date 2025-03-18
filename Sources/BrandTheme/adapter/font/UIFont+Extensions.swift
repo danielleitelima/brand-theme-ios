@@ -1,10 +1,6 @@
 import UIKit
 
 extension UIFont {
-    private var bundle: Bundle {
-        return Bundle.module
-    }
-
     private static func registerFont(
         withName name: String,
         extension fileExtension: String,
@@ -33,6 +29,7 @@ extension UIFont {
     }
     
     static func loadAll() {
+        let fontBundle = Bundle(for: BrandTheme.self)
         
         let dispatchGroup = DispatchGroup()
         
@@ -42,7 +39,7 @@ extension UIFont {
                 let success = registerFont(
                     withName: asset.rawValue,
                     extension: asset.fileExtension,
-                    in: bundle
+                    in: fontBundle
                 )
                 if !success {
                     print("Warning: Failed to register font \(asset.rawValue).\(asset.fileExtension)")
