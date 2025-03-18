@@ -4,6 +4,7 @@ let bundle = Bundle(for: BrandTheme.self)
 
 public protocol ThemeProvider {
     func getColor(_ color: BrandColor) -> UIColor
+    func getTypography(_ typography: BrandTypography, contentSize: UIContentSizeCategory) -> UIFont
 }
 
 public class BrandTheme: ThemeProvider {
@@ -16,7 +17,7 @@ public class BrandTheme: ThemeProvider {
         return color.load()!
     }
 
-    public func getFont(
+    public func getTypography(
         _ typography: BrandTypography,
         contentSize: UIContentSizeCategory
     ) -> UIFont {
