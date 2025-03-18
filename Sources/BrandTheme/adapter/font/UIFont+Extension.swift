@@ -1,16 +1,6 @@
 import UIKit
 
-extension UIFont {
-    static func brandFont(_ typography: BrandTypography) -> UIFont {
-        return BrandTheme().getTypography(typography, contentSize: .unspecified)
-    }
-    
-    static func brandFont(_ typography: BrandTypography, for traitCollection: UITraitCollection) -> UIFont {
-        return BrandTheme().getTypography(typography, contentSize: traitCollection.preferredContentSizeCategory)
-    }
-}
-
-extension UIFont {
+public extension UIFont {
     static var displayLarge: UIFont { brandFont(.displayLarge) }
     static var displayMedium: UIFont { brandFont(.displayMedium) }
     static var displaySmall: UIFont { brandFont(.displaySmall) }
@@ -28,7 +18,7 @@ extension UIFont {
     static var bodySmall: UIFont { brandFont(.bodySmall) }
 }
 
-extension UIFont {
+public extension UIFont {
     static func displayLarge(for traitCollection: UITraitCollection) -> UIFont {
         brandFont(.displayLarge, for: traitCollection)
     }
@@ -87,6 +77,16 @@ extension UIFont {
     
     static func bodySmall(for traitCollection: UITraitCollection) -> UIFont {
         brandFont(.bodySmall, for: traitCollection)
+    }
+}
+
+extension UIFont {
+    static func brandFont(_ typography: BrandTypography) -> UIFont {
+        return BrandTheme().getTypography(typography, contentSize: .unspecified)
+    }
+    
+    static func brandFont(_ typography: BrandTypography, for traitCollection: UITraitCollection) -> UIFont {
+        return BrandTheme().getTypography(typography, contentSize: traitCollection.preferredContentSizeCategory)
     }
 }
 

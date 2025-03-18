@@ -1,13 +1,7 @@
 import UIKit
 import BrandTheme
 
-extension UIColor {
-    static func brandColor(_ color: BrandColor) -> UIColor {
-        return BrandColor.color(color)
-    }
-}
-
-extension UIColor {
+public extension UIColor {
     static var primary: UIColor { brandColor(.primary) }
     static var onPrimary: UIColor { brandColor(.onPrimary) }
     static var primaryContainer: UIColor { brandColor(.primaryContainer) }
@@ -48,3 +42,9 @@ extension UIColor {
     static var shadow: UIColor { brandColor(.shadow) }
     static var scrim: UIColor { brandColor(.scrim) }
 } 
+
+extension UIColor {
+    static func brandColor(_ color: BrandColor) -> UIColor {
+        return BrandColor.color(color)
+    }
+}
